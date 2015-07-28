@@ -19,38 +19,58 @@
     	</ul>
     </div>
 	<div class="wrap-header">
-	<h1>
-    <a href="/" id="title"></a>
-	</h1>
+			<h1>
+            <a href="/" id="title"></a>
+			</h1>
 	</div>
 <div id="md" style="display: none;">
 <!-- markdown -->
-#`致坤哥`
+#`坤哥生日快乐`
 
-我原想收获一缕春风
 
-你却给了我整个春天
+祝你生日快乐
 
-从此
+祝你生日快乐
 
-我在更高`逼格`的路上越走越远
+祝你生日快乐
 
-让我怎样感谢你！
+祝你生日快乐！
+
+
+Happy  birthday to u  
+
+Happy  birthday to u
+ 
+Happy birthday to kunge
+
+Happy birthday  to u~
+
+坤哥，生日快乐，希望你能找寻到你的伯乐，进到自己理想的公司～生日礼物还在路上，可能会迟到哦，明天快乐，永远快乐～
+
+
 <!-- markdown end -->
 </div>
 <div class="entry" id="main">
 <!-- content -->
-<h1 id=""><code>致坤哥</code></h1>
+<h1 id=""><code>坤哥生日快乐</code></h1>
 
-<p>我原想收获一缕春风</p>
+<p>祝你生日快乐</p>
 
-<p>你却给了我整个春天</p>
+<p>祝你生日快乐</p>
 
-<p>从此</p>
+<p>祝你生日快乐</p>
 
-<p>我在更高<code>逼格</code>的路上越走越远</p>
+<p>祝你生日快乐！</p>
 
-<p>让我怎样感谢你！</p>
+<p>Happy  birthday to u  </p>
+
+<p>Happy  birthday to u</p>
+
+<p>Happy birthday to kunge</p>
+
+<p>Happy birthday  to u~</p>
+
+<p>坤哥，生日快乐，希望你能找寻到你的伯乐，进到自己理想的公司～生日礼物还在路上，可能会迟到哦，明天快乐，永远快乐～</p>
 <!-- content end -->
 </div>
 <br>
@@ -85,17 +105,23 @@ $(document).ready(function() {
         dataType: "json",
         success: function(data) {
             $("#title").html(data.name);
-            var pagesTemplate = Hogan.compile($("#pagesTemplate").html());
-            var pagesHtml = pagesTemplate.render({"pages": data.pages});
-            $("#pages").append(pagesHtml);
+            var pages = [];
             //path
             var path = "shanshanfirst.html";
             //path end
             var now = 0;
-            for (var i = 0; i < data.posts.length; ++i)
-                if (path == data.posts[i].path)
+            for (var i = 0; i < data.pages.length; ++i)
+                if (path == data.pages[i].path) {
                     now = i;
-            var post = data.posts[now];
+                    pages.push({"select": true, "path": data.pages[i].path, "title": data.pages[i].title});
+                }
+                else {
+                    pages.push({"select": false, "path": data.pages[i].path, "title": data.pages[i].title});
+                }
+            var pagesTemplate = Hogan.compile($("#pagesTemplate").html());
+            var pagesHtml = pagesTemplate.render({"pages": pages});
+            $("#pages").append(pagesHtml);
+            var post = data.pages[now];
             var tmp = post.tags.split(" ");
             var tags = [];
             for (var i = 0; i < tmp.length; ++i)
